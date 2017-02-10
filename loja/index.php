@@ -1,7 +1,9 @@
-<?php require_once ("cabecalho.php") ?>
+<?php require_once ("cabecalho.php");
+      session_start(); ?>
+      
     <h1>Bem-vindo</h1>
     <?php
-      if (isset($_COOKIE["usuario_logado"])){
+      if (isset($_SESSION["usuario_logado"])){
     ?>
     <p class="alert-success">Você está logado como <?=$_COOKIE["usuario_logado"]?>!</p>
     <?php } else{ ?>

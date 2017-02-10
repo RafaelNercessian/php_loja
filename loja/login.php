@@ -3,12 +3,13 @@
 
 
 <?php
+    session_start();
     $usuario=buscaUsuario($conexao,$_POST["login"],$_POST["senha"]);
     if($usuario==null){
-      header("Location:index.php?login=0");
+      header("Location:index.php");
     }else{
-      setcookie("usuario_logado",$usuario["login"]);
-      header("Location:index.php?login=1");
+      $_SESSION["usuario_logado"]=$usuario["login"];
+      header("Location:index.php");
     }
     die();
 ?>

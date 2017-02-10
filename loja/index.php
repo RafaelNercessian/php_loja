@@ -1,13 +1,11 @@
 <?php require_once ("cabecalho.php") ?>
     <h1>Bem-vindo</h1>
     <?php
-      if (isset($_GET["login"]) && $_GET["login"]==1){
+      if (isset($_COOKIE["usuario_logado"])){
     ?>
-    <p class="alert-success">Logado com sucesso!</p>
-    <?php } ?>
-    <?php if (isset($_GET["login"]) && $_GET["login"]==0){ ?>
+    <p class="alert-success">Você está logado como <?=$_COOKIE["usuario_logado"]?>!</p>
+    <?php } else{ ?>
       <p class="alert-danger">Usuário ou senha inválida!</p>
-    <?php }?>
     <h2>Login</h2>
     <form action="login.php" method="post">
       <div class="form-group">
@@ -20,4 +18,5 @@
       </div>
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
+    <?php }?>
 <?php require_once ("rodape.php") ?>

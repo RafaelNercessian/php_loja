@@ -7,6 +7,7 @@
     if($usuario==null){
       header("Location:index.php?login=0");
     }else{
+      setcookie("usuario_logado",$usuario["login"]);
       header("Location:index.php?login=1");
     }
     die();

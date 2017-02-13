@@ -1,13 +1,26 @@
 <?php require_once ("cabecalho.php");
       session_start(); ?>
-      
+<?php require_once ("logica-usuario.php"); ?>
+
+    <?php
+      if(isset($_GET["falhaDeSeguranca"])){
+     ?>
+     <p class="alert-danger">Você não tem acesso a esta funcionalidade!</p>
+     <?php
+   } else{
+      ?>
+
+      <?php if(isset($_GET["logout"]) && $_GET["logout"]==true){ ?>
+        <p class="alert-success">Deslogado com sucesso!</p>
+      <?php } ?>
+
     <h1>Bem-vindo</h1>
     <?php
-      if (isset($_SESSION["usuario_logado"])){
+       if(usuarioEstaLogado()){
     ?>
-    <p class="alert-success">Você está logado como <?=$_COOKIE["usuario_logado"]?>!</p>
+    <p class="alert-success">Você está logado como <?=usuarioLogado()?>!</p>
+    <p><a href="logout.php">Deslogar</a></p>
     <?php } else{ ?>
-      <p class="alert-danger">Usuário ou senha inválida!</p>
     <h2>Login</h2>
     <form action="login.php" method="post">
       <div class="form-group">
@@ -20,5 +33,6 @@
       </div>
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
+    <?php }?>
     <?php }?>
 <?php require_once ("rodape.php") ?>

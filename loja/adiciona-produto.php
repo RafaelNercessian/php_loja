@@ -1,27 +1,30 @@
 <?php require_once ("cabecalho.php"); ?>
 <?php require_once ("conecta.php"); ?>
 <?php require_once ("banco-produto.php"); ?>
+<?php require_once ("logica-usuario.php") ?>
+<?php require_once ("produto.php") ?>
+
             <?php
-                $nome=$_POST["nome"];
-                $preco=$_POST["preco"];
-                $descricao=$_POST["descricao"];
-                $categoria_id=$_POST["categoria_id"];
-                $usado=$_POST['usado'];
+                $produto=new Produto();
+                $produto->nome=$_POST["nome"];
+                $produto->preco=$_POST["preco"];
+                $produto->descricao=$_POST["descricao"];
+                $produto->categoria_id=$_POST["categoria_id"];
 
                 if(array_key_exists('usado',$_POST)){
-                  $usado="true";
+                  $produto->usado="true";
                 }else{
-                  $usado="false";
+                  $produto->usado="false";
                 }
 
-                if(insereProduto($conexao,$nome,$preco,$descricao,$categoria_id,$usado)){
+                if(insereProduto($conexao,$produto)){
             ?>
             <p class="alert-success">
-              Produto <?= $nome ?>, R$ <?= $preco ?> adicionado com sucesso</p>
+              Produto <?= $produto->nome ?>, R$ <?= $produto->preco ?> adicionado com sucesso</p>
             <?php
           }  else{
             ?>
-            <p class="alert-danger">O produto <?= $nome; ?> não foi adicionado</p>
+            <p class="alert-danger">O produto <?= $produto->nome; ?> não foi adicionado</p>
             <?php
             }
             ?>

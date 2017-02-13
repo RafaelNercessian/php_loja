@@ -3,13 +3,20 @@
   function listaProdutos($conexao){
     $produtos=array();
     $resultado=mysqli_query($conexao,"select p.*, c.nome as categoria_nome from produtos as p join categorias as c on p.categoria_id=c.id");
-    while($produto=mysqli_fetch_assoc($resultado)){
+    while($array=mysqli_fetch_assoc($resultado)){
+      $produto=new Produto();
+      $produto->id=$array["id"];
+      $produto->nome=$array["nome"];
+      $produto->preco=$array["preco"];
+      $produto->descricao=$array["descricao"];
+      $produto->categoria=$array["categoria"];
+      $produto->usado=$array["usado"];
       array_push($produtos,$produto);
     }
     return $produtos;
   }
-  function insereProduto($conexao,$nome,$preco,$descricao,$categoria_id,$usado){
-    $query="insert into produtos (nome,preco,descricao,categoria_id,usado) values ('{$nome}',{$preco},'{$descricao}',{$categoria_id},{$usado})";
+  function insereProduto($conexao,$produto){
+    $query="insert into produtos (nome,preco,descricao,categoria_id,usado) values ('{$produto->nome}',{$produto->preco},'{$produto->descricao}',{$produto->categoria_id},{$produto->usado})";
     $resultadoDaInsercao=mysqli_query($conexao,$query);
     return $resultadoDaInsercao;
   }

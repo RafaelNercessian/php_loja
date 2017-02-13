@@ -1,19 +1,21 @@
 <?php require_once 'cabecalho.php' ?>
 <?php require_once 'conecta.php' ?>
 <?php require_once 'banco-produto.php' ?>
+<?php require_once 'produto.php' ?>
+<?php require_once 'categoria.php' ?>
 <?php
     $produtos=listaProdutos($conexao);
   ?>
   <table class="table table-striped table-bordered">
     <?php foreach($produtos as $produto): ?>
       <tr>
-        <td><?=$produto['nome'] ?></td>
-        <td><?=$produto['preco'] ?></td>
-        <td><?=substr($produto['descricao'],0,40) ?></td>
-        <td><?=$produto['categoria_nome'] ?></td>
+        <td><?=$produto->nome ?></td>
+        <td><?=$produto->preco ?></td>
+        <td><?=substr($produto->descricao,0,40) ?></td>
+        <td><?=$produto->categoria->nome?></td>
         <td>
           <form action="remove-produto.php" method="post">
-            <input type="hidden" name="id" value="<?=$produto['id'] ?>">
+            <input type="hidden" name="id" value="<?=$produto->id ?>">
             <button class="btn btn-danger">Remover</button>
           </form>
         </td>

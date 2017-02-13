@@ -1,6 +1,8 @@
 <?php require_once ("cabecalho.php") ?>
 <?php require_once ("conecta.php") ?>
 <?php require_once ("banco-categoria.php") ?>
+<?php require_once ("logica-usuario.php") ?>
+<?php require_once ("categoria.php") ?>
 <?php $categorias=listaCategorias($conexao); ?>
 
             <h1>Formulário de Cadastro</h1>
@@ -24,8 +26,8 @@
                   <label>Categoria:</label>
                   <select name="categoria_id" class="form-control">
                   <?php foreach ($categorias as $categoria):?>
-                    <option value="<?=$categoria['id']?>">
-                      <?=$categoria['nome']?>
+                    <option value="<?=$categoria->id?>">
+                      <?=$categoria->nome?>
                     </option>
                   <?php endforeach ?>
                 </select>

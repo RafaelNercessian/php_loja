@@ -3,7 +3,6 @@
 <?php require_once 'logica-usuario.php';?>
 
 <?php
-    session_start();
     $usuario=buscaUsuario($conexao,$_POST["login"],$_POST["senha"]);
     if($usuario==null){
       header("Location:index.php");

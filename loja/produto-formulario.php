@@ -3,31 +3,50 @@
 <?php require_once ("banco-categoria.php") ?>
 <?php require_once ("logica-usuario.php") ?>
 <?php require_once ("categoria.php") ?>
-<?php $categorias=listaCategorias($conexao); ?>
+<?php require_once ("produto.php") ?>
+<?php require_once ("banco-produto.php") ?>
+<?php
+  $produto=new Produto();
+  $produto->setCategoria(new Categoria());
+  $ehAlteracao=false;
+  $action="adiciona-produto.php";
+  if(array_key_exists('id',$_GET)){
+    $id=$_GET["id"];
+    $produto=buscaProdutos($conexao,$id);
+    $ehAlteracao=true;
+    $action="altera-produto.php";
+  }
+  $categorias=listaCategorias($conexao);
+  $usado=$produto->getUsado()?"checked='checked'":"";
 
-            <h1>Formulário de Cadastro</h1>
-            <form action="adiciona-produto.php" method="post">
+?>
+
+            <h1><?=$ehAlteracao ? "Alterando":"Adicionando" ?> produto</h1>
+            <form action="<?=$action?>" method="post">
+                <input type="hidden" name="id" value="<?=$produto->getId() ?>">
                 <div class="form-group">
                   <label for="nome">Nome:</label>
-                  <input type="text" name="nome" class="form-control">
+                  <input type="text" name="nome" class="form-control" value="<?=$produto->getNome()?>">
                 </div>
                 <div class="form-group">
                   <label for="preco">Preço:</label>
-                  <input type="number" name="preco" class="form-control">
+                  <input type="number" name="preco" class="form-control" value="<?=$produto->getPreco()?>">
                 </div>
 
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="usado" value="true">Usado
+                    <input type="checkbox" name="usado" <?=$usado?> value="true">Usado
                   </label>
                 </div>
 
                 <div class="form-group">
                   <label>Categoria:</label>
                   <select name="categoria_id" class="form-control">
-                  <?php foreach ($categorias as $categoria):?>
-                    <option value="<?=$categoria->id?>">
-                      <?=$categoria->nome?>
+                  <?php foreach ($categorias as $categoria):
+                    $essaEhACategoria=$produto->getCategoria()->getId()==$categoria->getId();
+                    $selecao=$essaEhACategoria ? "selected='selected'" : "";?>
+                    <option value="<?=$categoria->getId()?>"<?=$selecao?>>
+                      <?=$categoria->getNome()?>
                     </option>
                   <?php endforeach ?>
                 </select>

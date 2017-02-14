@@ -3,24 +3,26 @@
 <?php require_once ("banco-produto.php"); ?>
 <?php require_once ("logica-usuario.php") ?>
 <?php require_once ("produto.php") ?>
+<?php require_once ("categoria.php") ?>
 
             <?php
                 $produto=new Produto();
-                $produto->nome=$_POST["nome"];
-                $produto->preco=$_POST["preco"];
-                $produto->descricao=$_POST["descricao"];
-                $produto->categoria_id=$_POST["categoria_id"];
+                $produto->setNome($_POST["nome"]);
+                $produto->setPreco($_POST["preco"]);
+                $produto->setDescricao($_POST["descricao"]);
+                $produto->setCategoria(new Categoria());
+                $produto->getCategoria()->setId($_POST["categoria_id"]);
 
                 if(array_key_exists('usado',$_POST)){
-                  $produto->usado="true";
+                  $produto->setUsado("true");
                 }else{
-                  $produto->usado="false";
+                  $produto->setUsado("false");
                 }
 
                 if(insereProduto($conexao,$produto)){
             ?>
             <p class="alert-success">
-              Produto <?= $produto->nome ?>, R$ <?= $produto->preco ?> adicionado com sucesso</p>
+              Produto <?= $produto->getNome() ?>, R$ <?= $produto->getPreco() ?> adicionado com sucesso</p>
             <?php
           }  else{
             ?>

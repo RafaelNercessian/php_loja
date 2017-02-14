@@ -5,8 +5,8 @@
     $resultado=mysqli_query($conexao,$query);
     while($array=mysqli_fetch_assoc($resultado)){
       $categoria=new Categoria();
-      $categoria->id=$array["id"];
-      $categoria->nome=$array["nome"];
+      $categoria->setId($array["id"]);
+      $categoria->setNome($array["nome"]);
       array_push($categorias,$categoria);
     }
     return $categorias;

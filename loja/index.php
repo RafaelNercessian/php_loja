@@ -3,10 +3,14 @@
 <?php session_start(); ?>
 
     <h1>Bem-vindo</h1>
+    <?php if(isset($_GET["logout"]) && $_GET["logout"]==true){?>
+      <p class="alert-success">Deslogado com sucesso</p>
+    <?php } ?>
     <?php
-      if(isset($_SESSION["usuario_logado"])){
+      if(usuarioEstaLogado()){
     ?>
-    <p class="text-success">Você está logado como <?=$_SESSION["usuario_logado"] ?></p>
+    <p class="text-success">Você está logado como <?=usuarioLogado() ?></p>
+    <p><a href="logout.php">Deslogar</a></p>
     <?php
       } else {
      ?>

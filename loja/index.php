@@ -3,6 +3,9 @@
 <?php session_start(); ?>
 
     <h1>Bem-vindo</h1>
+    <?php if(isset($_GET["sucesso"])){?>
+      <p class="alert-success"><?=$_GET["sucesso"] ?></p>
+    <?php } ?>
     <?php if(isset($_GET["logout"]) && $_GET["logout"]==true){?>
       <p class="alert-success">Deslogado com sucesso</p>
     <?php } ?>

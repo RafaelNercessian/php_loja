@@ -4,6 +4,8 @@
 <?php require_once ("logica-usuario.php") ?>
 <?php require_once ("produto.php") ?>
 <?php require_once ("categoria.php") ?>
+<?php require_once ("ProdutoDAO.php") ?>
+<?php verificaUsuario(); ?>
 
             <?php
                 $produto=new Produto();
@@ -13,13 +15,15 @@
                 $produto->setCategoria(new Categoria());
                 $produto->getCategoria()->setId($_POST["categoria_id"]);
 
+                $dao=new ProdutoDAO($conexao);
+
                 if(array_key_exists('usado',$_POST)){
                   $produto->setUsado("true");
                 }else{
                   $produto->setUsado("false");
                 }
 
-                if(insereProduto($conexao,$produto)){
+                if($dao->insereProduto($produto)){
             ?>
             <p class="alert-success">
               Produto <?= $produto->getNome() ?>, R$ <?= $produto->getPreco() ?> adicionado com sucesso</p>

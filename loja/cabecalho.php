@@ -11,6 +11,7 @@
 </head>
 
 <body>
+  <?session_start();?>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">

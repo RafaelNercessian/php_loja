@@ -1,5 +1,6 @@
 <?php
-
+  session_start();
+  
 function usuarioEstaLogado(){
   return isset($_SESSION["usuario_logado"]);
 }
@@ -7,7 +8,7 @@ function usuarioEstaLogado(){
 function verificaUsuario(){
   if(!usuarioEstaLogado()){
     header("Location: index.php?falhaDeSeguranca=true");
-
+    die();
   }
 }
 

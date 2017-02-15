@@ -5,6 +5,8 @@
 <?php require_once ("categoria.php") ?>
 <?php require_once ("produto.php") ?>
 <?php require_once ("banco-produto.php") ?>
+<?php require_once ("CategoriaDAO.php") ?>
+<?php verificaUsuario(); ?>
 <?php
   $produto=new Produto();
   $produto->setCategoria(new Categoria());
@@ -16,7 +18,8 @@
     $ehAlteracao=true;
     $action="altera-produto.php";
   }
-  $categorias=listaCategorias($conexao);
+  $categoriaDao=new CategoriaDAO($conexao);
+  $categorias=$categoriaDao->listaCategorias();
   $usado=$produto->getUsado()?"checked='checked'":"";
 
 ?>

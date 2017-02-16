@@ -8,6 +8,10 @@ class Produto{
   private $categoria;
   private $usado;
 
+  public function temIsbn(){
+    return $this instanceof Livro;
+  }
+
 
 public function subtraiDesconto($valor){
   if($valor==null){

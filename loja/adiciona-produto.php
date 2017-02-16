@@ -5,10 +5,17 @@
 <?php require_once ("produto.php") ?>
 <?php require_once ("categoria.php") ?>
 <?php require_once ("ProdutoDAO.php") ?>
+<?php require_once ("livro.php") ?>
 <?php verificaUsuario(); ?>
 
+
             <?php
-                $produto=new Produto();
+                if(strcasecmp($_POST["tipoProduto"],"livro")==0){
+                  $produto=new Livro();
+                  $produto->setIsbn($_POST["isbn"]);
+                }else{
+                  $produto=new Produto();
+                }
                 $produto->setNome($_POST["nome"]);
                 $produto->setPreco($_POST["preco"]);
                 $produto->setDescricao($_POST["descricao"]);

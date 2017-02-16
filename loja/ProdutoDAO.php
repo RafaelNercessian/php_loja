@@ -12,7 +12,13 @@
         $produtos=array();
         $resultado=mysqli_query($this->conexao,"select p.*, c.nome as categoria_nome from produtos as p join categorias as c on p.categoria_id=c.id");
         while($array=mysqli_fetch_assoc($resultado)){
-          $produto=new Produto();
+          if(trim($array["isbn"])!==""){
+            $produto=new Livro();
+            $produto->setIsbn($array["isbn"]);
+
+          }else{
+            $produto=new Produto();
+          }
           $produto->setId($array["id"]);
           $produto->setNome($array["nome"]);
           $produto->setPreco($array["preco"]);
@@ -26,7 +32,12 @@
         return $produtos;
       }
       function insereProduto($produto){
-        $query="insert into produtos (nome,preco,descricao,categoria_id,usado) values ('{$produto->getNome()}',{$produto->getPreco()},'{$produto->getDescricao()}',{$produto->getCategoria()->getId()},{$produto->getUsado()})";
+        if($produto->temIsbn()){
+          $isbn=$produto->getIsbn();
+        }else{
+           $isbn="";
+        }
+        $query="insert into produtos (nome,preco,descricao,categoria_id,usado,isbn) values ('{$produto->getNome()}',{$produto->getPreco()},'{$produto->getDescricao()}',{$produto->getCategoria()->getId()},{$produto->getUsado()},'{$isbn}')";
         $resultadoDaInsercao=mysqli_query($this->conexao,$query);
         return $resultadoDaInsercao;
       }
@@ -40,7 +51,14 @@
         $resultado=mysqli_query($this->conexao,$query);
         $array=mysqli_fetch_assoc($resultado);
 
-        $produto=new Produto();
+        if(trim($array["isbn"])!==""){
+          $produto=new Livro();
+          $produto->setIsbn($array["isbn"]);
+        }else{
+          $produto=new Produto();
+        }
+
+
         $produto->setId($array["id"]);
         $produto->setNome($array["nome"]);
         $produto->setPreco($array["preco"]);
@@ -55,7 +73,12 @@
       }
 
       function alteraProduto($produto){
-        $query="update produtos set nome= '{$produto->getNome()}', preco={$produto->getPreco()},descricao='{$produto->getDescricao()}',categoria_id={$produto->getCategoria()->getId()},usado={$produto->getUsado()} where id={$produto->getId()}";
+        if($produto->temIsbn()){
+          $isbn=$produto->getIsbn();
+        }else{
+          $isbn="";
+        }
+        $query="update produtos set nome= '{$produto->getNome()}', preco={$produto->getPreco()},descricao='{$produto->getDescricao()}',categoria_id={$produto->getCategoria()->getId()},usado={$produto->getUsado()},isbn='{$isbn}' where id={$produto->getId()}";
         return mysqli_query($this->conexao,$query);
     }
   }

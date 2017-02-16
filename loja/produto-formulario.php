@@ -6,6 +6,7 @@
 <?php require_once ("produto.php") ?>
 <?php require_once ("banco-produto.php") ?>
 <?php require_once ("CategoriaDAO.php") ?>
+<?php require_once ("livro.php") ?>
 <?php verificaUsuario(); ?>
 <?php
   $produto=new Produto();
@@ -58,6 +59,25 @@
                 <div class="form-group">
                   <label for="descricao">Descrição:</label>
                   <textarea name="descricao" class="form-control"></textarea>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Tipo de produto</label>
+                    <select name="tipoProduto" class="form-control">
+                      <option value="geral">geral</option>
+                      <option value="livro">livro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                  <label>ISBN (quando for um livro)</label>
+                  <?php if ($produto->temIsbn()){
+                    $isbn=$produto->getIsbn();
+                  }else{
+                    $isbn="";
+                  }?>
+                  <input class="form-control" name="isbn" value="<?=$isbn?>"/>
                 </div>
                 <input type="submit" value="cadastrar" class="btn btn-primary">
             </form>

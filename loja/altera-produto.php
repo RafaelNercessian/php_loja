@@ -4,7 +4,8 @@
     require_once 'banco-produto.php';
     require_once 'produto.php';
     require_once 'categoria.php';
-
+    require_once ("livro.php");
+    
     $produto=new Produto();
     $produto->setId($_POST["id"]);
     $produto->setNome($_POST["nome"]);

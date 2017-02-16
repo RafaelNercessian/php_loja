@@ -13,6 +13,11 @@ class Produto{
   }
 
 
+  function calculaImposto(){
+    return $this->preco - $this->preco*0.195;
+  }
+
+
 public function subtraiDesconto($valor){
   if($valor==null){
     $valor=0.05;

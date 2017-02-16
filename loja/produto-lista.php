@@ -14,6 +14,7 @@
       <tr>
         <td><?=$produto->getNome() ?></td>
         <td><?=$produto->getPreco() ?></td>
+        <td><?=$produto->calculaImposto() ?></td>
         <td><?=substr($produto->getDescricao(),0,40) ?></td>
         <td><?=$produto->getCategoria()->getNome()?></td>
         <td>

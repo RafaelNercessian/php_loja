@@ -9,6 +9,10 @@
     function setIsbn($isbn){
       $this->isbn=$isbn;
     }
+
+    function calculaImposto(){
+      return $this->getPreco() - $this->getPreco()*0.065;
+    }
   }
 
  ?>

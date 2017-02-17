@@ -6,32 +6,24 @@
 <?php require_once ("categoria.php") ?>
 <?php require_once ("ProdutoDAO.php") ?>
 <?php require_once ("livro.php") ?>
+<?php require_once ("livro-fisico.php") ?>
+<?php require_once ("ebook.php") ?>
+<?php require_once ("produto-factory.php") ?>
 <?php verificaUsuario(); ?>
 
 
             <?php
-                if(strcasecmp($_POST["tipoProduto"],"livro")==0){
-                  $produto=new Livro();
-                  $produto->setIsbn($_POST["isbn"]);
-                }else{
-                  $produto=new Produto();
-                }
-                $produto->setNome($_POST["nome"]);
-                $produto->setPreco($_POST["preco"]);
-                $produto->setDescricao($_POST["descricao"]);
-                $produto->setCategoria(new Categoria());
-                $produto->getCategoria()->setId($_POST["categoria_id"]);
+              $tipoProduto=$_POST["tipoProduto"];
+              $factory=new ProdutoFactory();
+              $produto=$factory->criaPor($tipoProduto);
+              $produto->atualizaBaseadoEm($_POST);
 
                 $dao=new ProdutoDAO($conexao);
-
-                if(array_key_exists('usado',$_POST)){
-                  $produto->setUsado("true");
-                }else{
-                  $produto->setUsado("false");
-                }
-
                 if($dao->insereProduto($produto)){
             ?>
+
+
+
             <p class="alert-success">
               Produto <?= $produto->getNome() ?>, R$ <?= $produto->getPreco() ?> adicionado com sucesso</p>
             <?php

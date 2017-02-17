@@ -5,24 +5,19 @@
     require_once 'produto.php';
     require_once 'categoria.php';
     require_once ("livro.php");
-    
-    $produto=new Produto();
-    $produto->setId($_POST["id"]);
-    $produto->setNome($_POST["nome"]);
-    $produto->setPreco($_POST["preco"]);
-    $produto->setDescricao($_POST["descricao"]);
-    $produto->setCategoria(new Categoria());
-    $produto->getCategoria()->setId($_POST["categoria_id"]);
+    require_once ("livro-fisico.php");
+    require_once ("ebook.php");
+    require_once ("produto-factory.php");
 
-    if(array_key_exists('usado',$_POST)){
-      $usado='true';
-    }else{
-      $usado='false';
-    }
-
-    $produto->setUsado($usado);
+    $tipoProduto=$_POST["tipoProduto"];
+    $factory=new ProdutoFactory();
+    $produto=$factory->criaPor($tipoProduto);
+    $produto->atualizaBaseadoEm($_POST);
 
     if(alteraProduto($conexao,$produto)){?>
+
+
+
     <p class="text-success">
       O produto <?=$produto->getNome() ?>,<?=$produto->getPreco() ?> foi alterado.
     </p>

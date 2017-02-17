@@ -5,6 +5,9 @@
 <?php require_once 'categoria.php' ?>
 <?php require_once 'livro.php' ?>
 <?php require_once 'ProdutoDAO.php' ?>
+<?php require_once ("livro-fisico.php") ?>
+<?php require_once ("ebook.php") ?>
+<?php require_once ("produto-factory.php") ?>
 <?php
     $produtoDao=new ProdutoDAO($conexao);
     $produtos=$produtoDao->listaProdutos();
@@ -21,6 +24,16 @@
           <?php if ($produto->temIsbn()):?>
             ISBN: <?=$produto->getIsbn() ?>
           <?php endif?>
+        </td>
+        <td>
+          <?php if($produto->temWaterMark()): ?>
+            WaterMark: <?= $produto->getWaterMark(); ?>
+          <?php endif ?>
+        </td>
+        <td>
+          <?php if($produto->temTaxaImpressao()): ?>
+            Taxa de impressão: <?= $produto->getTaxaImpressao() ?>
+          <?php endif ?>
         </td>
         <td>
           <a class="btn btn-primary" href="produto-formulario.php?id=<?=$produto->getId() ?>">Alterar</a>

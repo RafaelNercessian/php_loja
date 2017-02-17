@@ -7,6 +7,9 @@
 <?php require_once ("banco-produto.php") ?>
 <?php require_once ("CategoriaDAO.php") ?>
 <?php require_once ("livro.php") ?>
+<?php require_once ("livro-fisico.php") ?>
+<?php require_once ("ebook.php") ?>
+<?php require_once ("produto-factory.php") ?>
 <?php verificaUsuario(); ?>
 <?php
   $produto=new Produto();
@@ -66,8 +69,31 @@
                     <label>Tipo de produto</label>
                     <select name="tipoProduto" class="form-control">
                       <option value="geral">geral</option>
-                      <option value="livro">livro</option>
+                      <optgroup label="Livro">
+                        <option value="Ebook">Ebook</option>
+                        <option value="LivroFisico">Livro Físico</option>
+                      </optgroup>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Watermark (quando for um ebook)</label>
+                    <?php if($produto->temWaterMark()){
+                      $waterMark=$produto->getWaterMark();
+                    }else{
+                      $waterMark="";
+                    }?>
+                    <input class="form-control" name="waterMark" value="<?=$waterMark?>"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Taxa de impressão (quando for um livro físico)</label>
+                    <?php if($produto->temTaxaImpressao()){
+                      $taxaImpressao=$produto->getTaxaImpressao();
+                    }else{
+                      $taxaImpressao="";
+                    }?>
+                    <input class="form-control" name="taxaImpressao" value="<?=$taxaImpressao?>"/>
                 </div>
 
                 <div class="form-group">

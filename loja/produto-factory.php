@@ -2,13 +2,13 @@
 
   class ProdutoFactory{
 
-    private $classes=array("Produto","Ebook","LivroFisico");
+    private $classes=array("Ebook","LivroFisico");
 
     function criaPor($tipoProduto){
       if(in_array($tipoProduto,$this->classes)){
         return new $tipoProduto;
       }
-      return new Produto();
+      return new LivroFisico();
     }
   }
 

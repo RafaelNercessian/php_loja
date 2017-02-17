@@ -12,7 +12,7 @@
 <?php require_once ("produto-factory.php") ?>
 <?php verificaUsuario(); ?>
 <?php
-  $produto=new Produto();
+  $produto=new LivroFisico();
   $produto->setCategoria(new Categoria());
   $ehAlteracao=false;
   $action="adiciona-produto.php";
@@ -68,7 +68,6 @@
                 <div class="form-group">
                     <label>Tipo de produto</label>
                     <select name="tipoProduto" class="form-control">
-                      <option value="geral">geral</option>
                       <optgroup label="Livro">
                         <option value="Ebook">Ebook</option>
                         <option value="LivroFisico">Livro Físico</option>

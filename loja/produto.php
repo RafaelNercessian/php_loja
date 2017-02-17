@@ -1,6 +1,6 @@
 <?php
 
-class Produto{
+abstract class Produto{
   private $id;
   private $nome;
   private $preco;
@@ -93,32 +93,7 @@ class Produto{
     return $this->usado=$usado;
   }
 
-  function atualizaBaseadoEm($params){
-    if(method_exists($this,"setIsbn")){
-      $this->setIsbn($params["isbn"]);
-    }
-
-    if(method_exists($this,"setWaterMark")){
-      $this->setWaterMark($params["waterMark"]);
-    }
-
-    if(method_exists($this,"setTaxaImpressao")){
-      $this->setTaxaImpressao($params["taxaImpressao"]);
-    }
-
-    $this->setId($params["id"]);
-    $this->setNome($params["nome"]);
-    $this->setPreco($params["preco"]);
-    $this->setDescricao($params["descricao"]);
-    $this->setCategoria(new categoria());
-    $this->getCategoria()->setId($params["categoria_id"]);
-    $this->setTipoProduto($params["tipoProduto"]);
-    if(array_key_exists("usado",$params)){
-      $this->setUsado("true");
-    }else{
-      $this->setUsado("false");
-    }
-  }
+  abstract function atualizaBaseadoEm($params);
 
 }
 
